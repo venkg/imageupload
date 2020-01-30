@@ -51,7 +51,7 @@ class ImageFileUpload extends React.Component {
   }
   }
   fileUpload(imgSrc) {
-    const url = 'http://bookmystuff-docker-app-bullseye.apps.cluster.infosysadmcoe.com/product';
+    const url = 'http://bookmystuff-service-app-bullseye.apps.cluster.infosysadmcoe.com/product';
     const formData = new FormData();
     const splImage=imgSrc.split(',')
     const secondBase64=splImage[1]
