@@ -11,6 +11,7 @@ class ImageFileUpload extends React.Component {
       imgSrc:null,
       productName:"",
       productUrl:"",
+      message:""
     }
     this.onFormSubmit = this.onFormSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -23,7 +24,8 @@ class ImageFileUpload extends React.Component {
       console.log(response.data);
       const prodDtl=`Product Name: ${response.data[0].productClass} `
       const prodUrl= response.data[0].productUrl
-      this.setState({productName:prodDtl, productUrl:prodUrl})
+      const prodMsg= response.data[0].message
+      this.setState({productName:prodDtl, productUrl:prodUrl,message:prodMsg})
     })
     }
   }
@@ -44,14 +46,16 @@ class ImageFileUpload extends React.Component {
   if (fileExtn=='jpg'|| fileExtn=='jpeg'){
     this.toBase64(lfile).then(imgBase64=>{
       //console.log("imagBase64:",imgBase64)
-      this.setState({ file: lfile,imgSrc:imgBase64, productName:"",productUrl:""})
+      this.setState({ file: lfile,imgSrc:imgBase64, productName:"",productUrl:"",message:""})
     })
   } else{
-    this.setState({ file: null,imgSrc:null, productName:"",productUrl:""})
+    this.setState({ file: null,imgSrc:null, productName:"",productUrl:"",message:""})
   }
   }
   fileUpload(imgSrc) {
-    const url = 'http://bookmystuff-service-app-bullseye.apps.cluster.infosysadmcoe.com/product';
+    const url = 'http://bookmystuff-docker-app-bullseye.apps.cluster.infosysadmcoe.com/product';
+    //const url = 'http://bookmystuff-service-app-bullseye.apps.cluster.infosysadmcoe.com/product';   
+    //const url = 'http://localhost:5000/product';
     const formData = new FormData();
     const splImage=imgSrc.split(',')
     const secondBase64=splImage[1]
@@ -72,7 +76,7 @@ class ImageFileUpload extends React.Component {
     return (
       <div>
       <form onSubmit={this.onFormSubmit}>
-        <h1>Image File Upload</h1>
+        <h1>Upload Image *.jpg or *.jpeg</h1>
         <div>
           <input type="file" onChange={this.onChange} accept="image/jpeg,image/jpg" />
           <button type="submit">Search</button>
@@ -87,6 +91,9 @@ class ImageFileUpload extends React.Component {
       <div className="image-div">
         <img src={this.state.imgSrc} />       
       </div>
+      {this.state.message  &&<div className="image-div">          
+      <span> {this.state.message}   </span>     
+      </div>}
       </div>
     )
   }
