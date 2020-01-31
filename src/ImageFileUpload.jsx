@@ -22,7 +22,7 @@ class ImageFileUpload extends React.Component {
     if (this.state.imgSrc){
     this.fileUpload(this.state.imgSrc).then((response) => {
       console.log(response.data);
-      const prodDtl=`Product Name: ${response.data[0].productClass} `
+      const prodDtl= response.data[0].productClass
       const prodUrl= response.data[0].productUrl
       const prodMsg= response.data[0].message
       this.setState({productName:prodDtl, productUrl:prodUrl,message:prodMsg})
@@ -73,6 +73,7 @@ class ImageFileUpload extends React.Component {
   render() {
     //console.log("imgSrc:",this.state.imgSrc)
     //console.log("file:",this.state.file)
+    //console.log("productName:",this.state.productName)
     return (
       <div>
       <form onSubmit={this.onFormSubmit}>
@@ -82,18 +83,22 @@ class ImageFileUpload extends React.Component {
           <button type="submit">Search</button>
         </div>
         </form>
-      <div className="image-div">
-       <span> {this.state.productName}   </span>    
-      </div>
-      {this.state.productUrl  &&<div className="image-div">          
+      {this.state.productName && this.state.productName!=="unknown" &&<div className="image-div">
+       <span>Product Name: {this.state.productName}   </span>    
+      </div>}
+
+      {this.state.productUrl && this.state.productUrl!=="unknown" &&<div className="image-div">          
        Product URL: <a href={this.state.productUrl} target="_blank"> {this.state.productUrl}</a>   
       </div>}
-      <div className="image-div">
-        <img src={this.state.imgSrc} />       
-      </div>
+      
       {this.state.message  &&<div className="image-div">          
       <span> {this.state.message}   </span>     
       </div>}
+
+      <div className="image-div">
+        <img src={this.state.imgSrc} />       
+      </div>
+     
       </div>
     )
   }
