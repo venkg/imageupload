@@ -53,7 +53,7 @@ class ImageFileUpload extends React.Component {
   }
   }
   fileUpload(imgSrc) {
-    const url = 'http://bookmystuff-docker-app-bullseye.apps.cluster.infosysadmcoe.com/product';
+    const url = 'http://bookmystuff-service-app-bullseye.apps.imppoc.admcoe.com/product';
     //const url = 'http://bookmystuff-service-app-bullseye.apps.cluster.infosysadmcoe.com/product';   
     //const url = 'http://localhost:5000/product';
     const formData = new FormData();
